@@ -52,6 +52,7 @@ if(isset($_SESSION['cart'])) {
 	
 	//Contrôle si le nombre de pages passé en paramètres est compris entre 1 et le nombre de pages totales
 	//Si ce n'est pas le cas, affecte la bonne valeur à la variable.
+	
 	if($intPge > $intNbPages) {
 		$intPge = $intNbPages;
 	}
@@ -117,36 +118,47 @@ if(isset($_SESSION['cart'])) {
 					<option value="123">Auberson Thierry (TAN)</option>
 					<option value="150">Aubert Pierre (PAT)</option>
 					<option value="158">Balet St&eacute;phane (SBT)</option>
-					<option value="113">Bertinotti (EBI)</option>
 					<option value="103">Beutler Yves (YBR)</option>
 					<option value="114">Brandt Yves (YBT)</option>
-					<option value="116">Chappuis Jer&ocirc;me (JCS)</option>
 					<option value="110">Chapuis Robert (RCS)</option>
-					<option value="120">Darbellay Yves (YDY)</option>
 					<option value="151">Deladoey Luc (LDE)</option>
 					<option value="115">Ecoffey Aim&eacute; (AEY)</option>
 					<option value="102">Fose Fabrice (FRE)</option>
-					<option value="111">Frankhauser Herv&eacute; (HFR)</option>
-					<option value="122">Gonet Gilbert (GGT)</option>
-					<option value="119">Jaques Jean-Pierre (JJS)</option>
-					<option value="104">John Ruiz (JRZ)</option>
+					<option value="104">Ruiz John (JRZ)</option>
 					<option value="101">Joss Philippe (PJS)</option>
 					<option value="147">Lonia Raffaele (RLA)</option>
-					<option value="105">Marouani Nourededine (NMI)</option>
-					<option value="106">Matthey Alain (AMY)</option>
+					<option value="105">Marouani Noureddine (NMI)</option>
 					<option value="109">Millet Patrick (PMT)</option>
-					<option value="112">Moser Christophe (CMR)</option>
-					<option value="161">M&uuml;ller Hans-Peter (HMR)</option>
-					<option value="118">Murset Olivier (OMT)</option>
 					<option value="130">Ollivier Patrick (POR)</option>
-					<option value="125">Pirolet Jean-Fran&ccedil;ois (JPT)</option>
 					<option value="135">Poulin Philippe (PPO)</option>
 					<option value="121">Ravaioli Mich&eacute;l&eacute; (MRI)</option>
 					<option value="133">Richoz Fran&ccedil;ois (FRZ)</option>
 					<option value="127">Ryser Yann (YRR)</option>
-					<option value="134">Salquin Olivier (OSN)</option>
 					<option value="117">Schaller Lionel (LSH)</option>
 					<option value="124">Zappelli Alexandre (AZI)</option>
+					
+					
+					/////ID à changer
+					/*
+					<option value="124">Henry Sébastien (SHY)</option>
+					<option value="124">Huser Matthias (MHR)</option>
+					<option value="124">Piguet Ralph (RPT)</option>
+					<option value="124">Sousa Pedro (PSA)</option>
+					<option value="124">Seydoux Dominique (DSX)</option>
+					<option value="124">Richard Patrick (PRI)</option>
+					<option value="124">Rochat Sylvain (SRO)</option>
+					<option value="124">Bertholet Thierry (TBT)</option>
+					<option value="124">Di Natale Romain (RDE)</option>
+					<option value="124">Castoldi Serge (SCA)</option>
+					<option value="124">Richard Albert (ARC)</option>
+					<option value="124">Sahli Bertrand (BSI)</option>
+					<option value="124">Schneider Patrick (PSR)</option>
+
+					*/
+
+
+
+
 				</select>
 			</div>
 			<input type="hidden" id="Maitre" name="Maitre" value="Autres (VCY)" />

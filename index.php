@@ -7,9 +7,9 @@
 // But:     Page d'accueil où les informations seront affichées
 //***************************************************************
 // Modifications:
-// Date  :  -
-// Auteur:  -
-// Raison:  -
+// Date  :  08.04.2022
+// Auteur:  João Pedro Ferrera Magalhães Rodrigues, Béchir Boumaza, Mark Lovink
+// Raison:  Modifications avec la TODO liste
 //************************************************************-->
 
 <html>
