@@ -99,10 +99,9 @@ class dbIfc {
 	// *******************************************************************
 	private function executeQuery($strQuery){
 		//Connection à la BD
-		if ($this->objConnexion) {
+		if ($this->objConnexion == null) {
 			$this->dbConnect();
 		}
-		
 		
 		//Execution de la requete et recuperation du recordset
 		$stmtResult = sqlsrv_query($this->objConnexion, $strQuery);		
