@@ -1,0 +1,71 @@
+/* Bulle d'informations */
+div#tooltip {
+	/* Affichage et position */
+	position:absolute;
+	display:none;
+	
+	/* Opacité */
+	opacity:0.95;
+	filter:alpha(opacity = 95);
+	
+	/* Mise en forme de la boite */
+	padding:5px;
+	font-weight:bold;
+	background-color:white;
+	
+	/* Contours */
+	border:2px solid black;
+	box-shadow: 7px 7px 7px 0 #000;
+	
+	z-index:10;
+}
+
+/* Pointe vers le haut */
+.tooltip-top {
+	border-radius:20px 20px 20px 0;
+}
+
+/* Pointe vers le bas */
+.tooltip-bottom {
+	border-radius:0px 20px 20px 20px;
+}
+
+/* Styles de tous les tableaux */
+table {
+	margin:0 auto;
+	vertical-align: middle !important;
+}
+
+body {
+	margin-top: 20px;
+}
+
+table#tableContent {
+	width: 75%;
+	margin:0 auto;
+}
+
+.pointer {
+	cursor:pointer;
+}
+
+span {
+	display:inline-block;
+}
+
+div {
+	text-align:center;
+	margin:0 auto;
+}
+
+span#cartItems {
+	margin:auto;
+}
+
+a {
+	text-decoration:none;
+}
+
+div#cartContent{
+	z-index:5;
+}

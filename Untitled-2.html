@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+<!--*************************************************************
+// Societe: ETML 
+// Auteur:  Bryan Perroud
+// Date:    08.11.2012
+// But:     Page d'accueil où les informations seront affichées
+//***************************************************************
+// Modifications:
+// Date  :  -
+// Auteur:  -
+// Raison:  -
+//************************************************************-->
+
+<html>
+
+  <head>
+    <title>Catalogue ETML - Index</title>
+    <script type="text/javascript" src="include/js/tooltip.js"></script>
+    <script type="text/javascript" src="include/js/functions.js"></script>
+    <script type="text/javascript" src="include/js/ajax.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="include/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="include/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="include/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="include/styles/styles.css">
+
+    <script type='text/javascript'>
+      updateArticleDetails("711.744");
+    </script>
+    <div id="item" class="modal hide fade">
+
+      <div id="infoTop" class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Informations sur l'article</h3>
+      </div>
+
+      <div id="infos" class="modal-body">
+      </div>
+
+      <div id="articleUrlDiv" class="modal-footer">
+        <span>Lien permanent: </span><input type="url" id="articleURL" />
+      </div>
+
+    </div>
+
+  </head>
+
+  <body style="margin-top:20px;">
+
+    <div id='container' style='position:relative;'>
+      <div style="position:relative; z-index:6;" id="searchDiv">
+        <table style="text-align:center;">
+          <tr>
+            <td style="width:34%;">
+              <b><a href="index.php">Index du catalogue</a></b>
+            </td>
+            <td style="width:33%;">
+              <form id="frmSearch" name="frmSearch" action="recherche.php" class="form-search" method="get">
+                <div class="input-append">
+                  <input type="search" name="txtSearch" id="txtSearch" class="span2 search-query"
+                    placeholder="Entrez votre recherche" value="" />
+                  <button type="submit" class="btn"><i class="icon-search"></i></button>
+                </div>
+              </form>
+            </td>
+            <td style="width:33%;">
+              <a href="./cart.php"><i class="icon-shopping-cart"></i> Panier(<span id="cartItems">
+                  0 </span>)</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <br /><br />
+
+      <script type="javascript" src="functions.js"></script>
+
+
+      <script>
+        //$('#txtPageToGo').onkeypress = function(event) { alert('/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=') };
+      </script>
+
+      <div class="modal hide fade" id="selectPage">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>Aller &agrave; la page...</h4>
+        </div>
+        <div class="modal-body">
+          <span>Indiquez la page &agrave; laquelle vous voulez vous rendre en entrant un nombre entre 1 et 946.</span>
+          <br />
+          <input type="number" name="txtPageToGo" id="txtPageToGo" min="1" max="946" class="input-small"
+            style="text-align:center;" value="2">
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+          <button class="btn btn-primary"
+            onClick="changePage('/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=', $('#txtPageToGo').value, 946);">Aller
+            &agrave; la page</button>
+        </div>
+      </div>
+      <div>
+        <table>
+          <tr>
+            <td>&nbsp;
+              <ul class='pager'>
+                <li class='pointer'><a onClick='$("#selectPage").modal("show"); $("#txtPageToGo").focus();'>Aller à la
+                    page...</a>
+                </li>
+              </ul>
+              &nbsp;</td>
+            <td>&nbsp;
+              <div class='pagination pagination-centered'>
+                <ul>
+                  <li>
+                    <a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1'>&laquo;</a>
+                  </li>
+                  <li><a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1'>&lsaquo;</a>
+                  </li>
+                  <li><a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1'>1</a>
+                  </li>
+                  <li class='active'><span>2</span></li>
+                  <li><a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=3'>3</a>
+                  </li>
+                  <li><a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=4'>4</a>
+                  </li>
+                  <li>
+                    <a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=3'>&rsaquo;</a>
+                  </li>
+                  <li><a
+                      href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=946'>&raquo;</a>
+                  </li>
+              </div>&nbsp;</td>
+            <td>&nbsp;<span>
+                <select
+                  onChange='if(this.selectedIndex > 0) { document.location.href="/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1&nbItems="+this.value; }'>
+                  <option value='0'>Lignes par page..</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='10'>10</option>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+              </span>
+      </div>
+      </td>
+      </tr>
+      </table>
+    </div>
+
+    <br /><br />
+
+    <div>
+      <b>Résultats de recherche: 21 à 40 sur 18910.</b></div><br />
+    <div>
+      <table id='tableContent' class='table table-hover'>
+        <tr>
+          <thead>
+            <th>Image</th>
+            <th class="pointer"
+              onmouseover='new tooltip().createTooltip(event, this, "Cliquez pour trier par "+this.innerHTML);'
+              onClick='document.location.href="/catalogue2/index.php?page=2&article=711.744&sorting=asc&sortCol=dbo.ART.Artikelnummer";'>
+              No d'article</th>
+            <th class="pointer"
+              onmouseover='new tooltip().createTooltip(event, this, "Cliquez pour trier par "+this.innerHTML);'
+              onClick='document.location.href="/catalogue2/index.php?page=2&article=711.744&sorting=desc&sortCol=dbo.ART.Bezeichnung";'>
+              Désignation <i class='icon-chevron-down'></i></th>
+            <th class="pointer"
+              onmouseover='new tooltip().createTooltip(event, this, "Cliquez pour trier par "+this.innerHTML);'
+              onClick='document.location.href="/catalogue2/index.php?page=2&article=711.744&sorting=asc&sortCol=dbo.ARKALK.Kalkulationspreis";'>
+              Prix</th>
+            <th></th>
+          </thead>
+        </tr>
+
+        <tbody>
+          </n>
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("698.468", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.468");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=698.468"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=698.468' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("698.468", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.468");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement pour l\' air comprimé 5.5
+              mm,");'>698.468</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("698.468", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.468");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement pour l\'air comprimé 5.5 mm,");'>Accouplement pour l'air comprimé 5.5 mm,
+              - 8mm</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("698.468", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.468");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement pour l\' air comprimé 5.5
+              mm,");'>14.96 CHF</td>
+            <td><input type='checkbox' id='698.468' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_698.468").value == "0") { document.getElementById("article_698.468").value="1"; document.getElementById("article_698.468").focus(); }'
+                value='698.468' /><input type='text' id='article_698.468' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("698.463", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.463");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=698.463"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=698.463' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("698.463", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.463");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement pour l\' air comprimé AX
+              80");'>698.463</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("698.463", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.463");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement pour l\' air comprimé AX
+              80");'>Accouplement pour l'air comprimé AX 80
+              - "R 1/4"""</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("698.463", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=698.463");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement pour l\' air comprimé AX
+              80");'>19.03 CHF</td>
+            <td><input type='checkbox' id='698.463' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_698.463").value == "0") { document.getElementById("article_698.463").value="1"; document.getElementById("article_698.463").focus(); }'
+                value='698.463' /><input type='text' id='article_698.463' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("886.488", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=886.488");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=886.488"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=886.488' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("886.488", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=886.488");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide pr tuyau Ø6");'>
+              886.488</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("886.488", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=886.488");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide pr tuyau Ø6");'>
+              Accouplement rapide pr tuyau Ø6
+              - CEJN300 Rectus série 14</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("886.488", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=886.488");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide pr tuyau Ø6");'>
+              14.52 CHF</td>
+            <td><input type='checkbox' id='886.488' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_886.488").value == "0") { document.getElementById("article_886.488").value="1"; document.getElementById("article_886.488").focus(); }'
+                value='886.488' /><input type='text' id='article_886.488' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("711.747", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.747");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=711.747"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=711.747' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.747", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.747");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide pr tuyau Ø8");'>
+              711.747</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("711.747", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.747");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide pr tuyau Ø8");'>
+              Accouplement rapide pr tuyau Ø8
+              - CEJN300 bague sécurité bleue SUVA</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.747", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.747");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide pr tuyau Ø8");'>
+              30.34 CHF</td>
+            <td><input type='checkbox' id='711.747' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_711.747").value == "0") { document.getElementById("article_711.747").value="1"; document.getElementById("article_711.747").focus(); }'
+                value='711.747' /><input type='text' id='article_711.747' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("711.746", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.746");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=711.746"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=711.746' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.746", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.746");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R1/2&quot;");'>
+              711.746</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("711.746", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.746");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R1/2&quot;");'>
+              Accouplement rapide sécurité R1/2"
+              - CEJN300 bague sécurité bleue SUVA</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.746", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.746");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R1/2&quot;");'>
+              33.73 CHF</td>
+            <td><input type='checkbox' id='711.746' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_711.746").value == "0") { document.getElementById("article_711.746").value="1"; document.getElementById("article_711.746").focus(); }'
+                value='711.746' /><input type='text' id='article_711.746' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("711.744", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.744");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=711.744"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=711.744' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.744", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.744");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R1/4&quot;");'>
+              711.744</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("711.744", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.744");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R1/4&quot;");'>
+              Accouplement rapide sécurité R1/4"
+              - CEJN300 bague sécurité bleue SUVA</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.744", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.744");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R1/4&quot;");'>
+              23.41 CHF</td>
+            <td><input type='checkbox' id='711.744' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_711.744").value == "0") { document.getElementById("article_711.744").value="1"; document.getElementById("article_711.744").focus(); }'
+                value='711.744' /><input type='text' id='article_711.744' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("711.745", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.745");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=711.745"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=711.745' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.745", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.745");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R3/8&quot;");'>
+              711.745</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("711.745", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.745");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R3/8&quot;");'>
+              Accouplement rapide sécurité R3/8"
+              - CEJN300 bague sécurité bleue SUVA</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.745", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.745");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accouplement rapide sécurité R3/8&quot;");'>
+              0.00 CHF</td>
+            <td><input type='checkbox' id='711.745' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_711.745").value == "0") { document.getElementById("article_711.745").value="1"; document.getElementById("article_711.745").focus(); }'
+                value='711.745' /><input type='text' id='article_711.745' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("894.582", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.582");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=894.582"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=894.582' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("894.582", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.582");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accoupleur rapide M22x1 chromé");'>
+              894.582</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("894.582", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.582");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accoupleur rapide M22x1 chromé");'>
+              Accoupleur rapide M22x1 chromé
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("894.582", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.582");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accoupleur rapide M22x1 chromé");'>20.57
+              CHF</td>
+            <td><input type='checkbox' id='894.582' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_894.582").value == "0") { document.getElementById("article_894.582").value="1"; document.getElementById("article_894.582").focus(); }'
+                value='894.582' /><input type='text' id='article_894.582' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("711.167", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.167");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=711.167"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=711.167' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.167", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.167");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu court Makita 12V 3Ah");'>711.167
+            </td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("711.167", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.167");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu court Makita 12V 3Ah");'>Accu court
+              Makita 12V 3Ah
+              - 1235 NiMH TAR inclus</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("711.167", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=711.167");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu court Makita 12V 3Ah");'>86.63 CHF
+            </td>
+            <td><input type='checkbox' id='711.167' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_711.167").value == "0") { document.getElementById("article_711.167").value="1"; document.getElementById("article_711.167").focus(); }'
+                value='711.167' /><input type='text' id='article_711.167' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("697.376", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=697.376");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=697.376"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=697.376' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("697.376", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=697.376");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu de rechange Bosch 12V 3.0Ah");'>
+              697.376</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("697.376", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=697.376");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu de rechange Bosch 12V 3.0Ah");'>
+              Accu de rechange Bosch 12V 3.0Ah
+              - TAR inclus</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("697.376", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=697.376");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu de rechange Bosch 12V 3.0Ah");'>
+              48.22 CHF</td>
+            <td><input type='checkbox' id='697.376' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_697.376").value == "0") { document.getElementById("article_697.376").value="1"; document.getElementById("article_697.376").focus(); }'
+                value='697.376' /><input type='text' id='article_697.376' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("339.060", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.060");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=339.060"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=339.060' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("339.060", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.060");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu HR6 1.2V 2300mAh");'>339.060</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("339.060", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.060");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu HR6 1.2V 2300mAh");'>Accu HR6 1.2V
+              2300mAh
+              - av languettes</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("339.060", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.060");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu HR6 1.2V 2300mAh");'>7.78 CHF</td>
+            <td><input type='checkbox' id='339.060' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_339.060").value == "0") { document.getElementById("article_339.060").value="1"; document.getElementById("article_339.060").focus(); }'
+                value='339.060' /><input type='text' id='article_339.060' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("385.086", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.086");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=385.086"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=385.086' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("385.086", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.086");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu hydrure nickel NiMH 2.4V 15mAh");'>
+              385.086</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("385.086", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.086");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu hydrure nickel NiMH 2.4V 15mAh");'>
+              Accu hydrure nickel NiMH 2.4V 15mAh
+              - 2-V15H KM.SLF RM8</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("385.086", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.086");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu hydrure nickel NiMH 2.4V 15mAh");'>
+              0.00 CHF</td>
+            <td><input type='checkbox' id='385.086' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_385.086").value == "0") { document.getElementById("article_385.086").value="1"; document.getElementById("article_385.086").focus(); }'
+                value='385.086' /><input type='text' id='article_385.086' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("385.088", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.088");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=385.088"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=385.088' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("385.088", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.088");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu hydrure nickel NiMH 2.4V 40mAh");'>
+              385.088</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("385.088", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.088");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu hydrure nickel NiMH 2.4V 40mAh");'>
+              Accu hydrure nickel NiMH 2.4V 40mAh
+              - 2/V40H KM SLF RM8</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("385.088", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.088");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu hydrure nickel NiMH 2.4V 40mAh");'>
+              0.00 CHF</td>
+            <td><input type='checkbox' id='385.088' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_385.088").value == "0") { document.getElementById("article_385.088").value="1"; document.getElementById("article_385.088").focus(); }'
+                value='385.088' /><input type='text' id='article_385.088' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("340.464", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=340.464");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=340.464"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=340.464' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("340.464", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=340.464");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu NiMH 12V 4000mAh");'>340.464</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("340.464", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=340.464");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu NiMH 12V 4000mAh");'>Accu NiMH 12V
+              4000mAh
+              - Sub C Conrad Energy</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("340.464", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=340.464");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu NiMH 12V 4000mAh");'>0.00 CHF</td>
+            <td><input type='checkbox' id='340.464' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_340.464").value == "0") { document.getElementById("article_340.464").value="1"; document.getElementById("article_340.464").focus(); }'
+                value='340.464' /><input type='text' id='article_340.464' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("386.067", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=386.067");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=386.067"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=386.067' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("386.067", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=386.067");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Canon NB-5L 1100mA");'>386.067
+            </td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("386.067", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=386.067");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Canon NB-5L 1100mA");'>Accu pr
+              Canon NB-5L 1100mA
+              - 3.7V gris</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("386.067", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=386.067");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Canon NB-5L 1100mA");'>15.40 CHF
+            </td>
+            <td><input type='checkbox' id='386.067' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_386.067").value == "0") { document.getElementById("article_386.067").value="1"; document.getElementById("article_386.067").focus(); }'
+                value='386.067' /><input type='text' id='article_386.067' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("894.925", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.925");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=894.925"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=894.925' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("894.925", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.925");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Samsung Galaxy Note 2500mAh ");'>
+              894.925</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("894.925", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.925");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Samsung Galaxy Note 2500mAh ");'>
+              Accu pr Samsung Galaxy Note 2500mAh
+              - Li-Ion</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("894.925", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.925");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Samsung Galaxy Note 2500mAh ");'>
+              29.65 CHF</td>
+            <td><input type='checkbox' id='894.925' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_894.925").value == "0") { document.getElementById("article_894.925").value="1"; document.getElementById("article_894.925").focus(); }'
+                value='894.925' /><input type='text' id='article_894.925' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("894.922", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.922");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=894.922"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=894.922' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("894.922", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.922");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Samsung Galaxy S3 2500mAh");'>
+              894.922</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("894.922", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.922");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Samsung Galaxy S3 2500mAh");'>
+              Accu pr Samsung Galaxy S3 2500mAh
+              - EB-L1G6LL</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("894.922", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=894.922");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accu pr Samsung Galaxy S3 2500mAh");'>
+              29.65 CHF</td>
+            <td><input type='checkbox' id='894.922' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_894.922").value == "0") { document.getElementById("article_894.922").value="1"; document.getElementById("article_894.922").focus(); }'
+                value='894.922' /><input type='text' id='article_894.922' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("339.857", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.857");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=339.857"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=339.857' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("339.857", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.857");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur 1.2V 80mAh");'>339.857</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("339.857", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.857");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur 1.2V 80mAh");'>Accumulateur
+              1.2V 80mAh
+              - 80BVH1A1H</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("339.857", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=339.857");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur 1.2V 80mAh");'>4.19 CHF
+            </td>
+            <td><input type='checkbox' id='339.857' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_339.857").value == "0") { document.getElementById("article_339.857").value="1"; document.getElementById("article_339.857").focus(); }'
+                value='339.857' /><input type='text' id='article_339.857' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("338.706", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=338.706");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=338.706"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=338.706' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("338.706", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=338.706");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur 12V 2Ah");'>338.706</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("338.706", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=338.706");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur 12V 2Ah");'>Accumulateur
+              12V 2Ah
+              - NP2-12</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("338.706", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=338.706");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur 12V 2Ah");'>0.00 CHF</td>
+            <td><input type='checkbox' id='338.706' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_338.706").value == "0") { document.getElementById("article_338.706").value="1"; document.getElementById("article_338.706").focus(); }'
+                value='338.706' /><input type='text' id='article_338.706' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+          <tr style='height:70px;'>
+            <td class="pointer"
+              onClick='setArticleUrl("385.401", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.401");'
+              onmouseover='var objImg = document.createElement("img"); new tooltip().createTooltip(event, this, ""); objImg.src = "./include/blobimg.inc.php?imgid=385.401"; resizeImage(objImg);document.getElementById("tooltip").appendChild(objImg);'>
+              <img src='./include/blobimg.inc.php?imgid=385.401' style='max-width:60px; max-height:60px;' /></td>
+            <td class="pointer"
+              onClick='setArticleUrl("385.401", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.401");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur au plomb 12V 12Ah");'>
+              385.401</td>
+            <td class="pointer" style='text-align:left;'
+              onClick='setArticleUrl("385.401", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.401");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur au plomb 12V 12Ah");'>
+              Accumulateur au plomb 12V 12Ah
+              - LC-RA1212PG1 connecteur 6.3mm</td>
+            </td>
+            <td class="pointer"
+              onClick='setArticleUrl("385.401", "/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&page=2&article=385.401");'
+              onmouseover='new tooltip().createTooltip(event, this, "Détails de Accumulateur au plomb 12V 12Ah");'>
+              117.15 CHF</td>
+            <td><input type='checkbox' id='385.401' class='checkbox' name='article'
+                onClick='if(this.checked && document.getElementById("article_385.401").value == "0") { document.getElementById("article_385.401").value="1"; document.getElementById("article_385.401").focus(); }'
+                value='385.401' /><input type='text' id='article_385.401' name='articleQuantity' maxlength='3' size='3'
+                class='input-mini' value='0' style='text-align:center;' /> </td>
+          </tr>
+
+        </tbody>
+        <tfoot style='cursor:auto'>
+          <tr>
+            <td colspan='4' style='text-align:right;'>
+              Tout cocher </td>
+            <td>
+              <input type="checkbox" name='mainArticle' id='mainArticle' value='mainArticle'
+                onClick='checkAll("article");' />
+            </td>
+          </tr>
+          <tr>
+            <td colspan='4' style='text-align:right;'>
+              Ajouter les lignes cochées à la liste d'impression </td>
+            <td>
+              <input type='button' class='btn' value='Ajouter' name='btnAddToList' id='btnAddToList'
+                onClick='addToList("article");' />
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+
+    <div id="tooltip"></div>
+    <br /><br />
+
+    <div>
+      <table>
+        <tr>
+          <td>&nbsp;
+            <ul class='pager'>
+              <li class='pointer'><a onClick='$("#selectPage").modal("show"); $("#txtPageToGo").focus();'>Aller à la
+                  page...</a>
+              </li>
+            </ul>
+            &nbsp;</td>
+          <td>&nbsp;
+            <div class='pagination pagination-centered'>
+              <ul>
+                <li>
+                  <a
+                    href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1'>&laquo;</a>
+                </li>
+                <li><a
+                    href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1'>&lsaquo;</a>
+                </li>
+                <li><a href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1'>1</a>
+                </li>
+                <li class='active'><span>2</span></li>
+                <li><a href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=3'>3</a>
+                </li>
+                <li><a href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=4'>4</a>
+                </li>
+                <li>
+                  <a
+                    href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=3'>&rsaquo;</a>
+                </li>
+                <li><a
+                    href='/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=946'>&raquo;</a>
+                </li>
+            </div>&nbsp;</td>
+          <td>&nbsp;<span>
+              <select
+                onChange='if(this.selectedIndex > 0) { document.location.href="/catalogue2/index.php?sorting=asc&sortCol=dbo.ART.Bezeichnung&article=711.744&page=1&nbItems="+this.value; }'>
+                <option value='0'>Lignes par page..</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+                <option value='10'>10</option>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+            </span>
+    </div>
+    </td>
+    </tr>
+    </table>
+    </div>
+
+    </div>
+  </body>
+
+</html>
