@@ -534,7 +534,7 @@ function createSearch() {
 		<table style="text-align:center;">
 			<tr>
 				<td style="width:34%;">
-					<b><a href="index.php">Index du catalogue</a></b>
+					<b><a href="index.php">Page d'accueil</a></b>
 				</td>
 				<td style="width:33%;">
 					<form id="frmSearch" name="frmSearch" action="recherche.php" class="form-search" method="get">
