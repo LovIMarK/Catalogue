@@ -127,11 +127,27 @@ function createList($strLocation = "shop") {
 			
 			$strSorting == 'asc' ? print(" <i class='icon-chevron-down'></i>") : print(" <i class='icon-chevron-up'></i>");
 		}
-		
+
+		//Ajout du lieu de stockage
+		// A modifier la base de donnée
+		/*
 		print("</th>\n");
-		print("<th class=\"pointer\" onmouseover='new tooltip().createTooltip(event, this, \"Cliquez pour trier par \"+this.innerHTML);' onClick='document.location.href=\"".moveParameter('sortCol=', moveParameter('sorting=', $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'], ascOrDesc("dbo.ARKALK.Kalkulationspreis")), "dbo.ARKALK.Kalkulationspreis")."\";'>Prix");
+		print("<th class=\"pointer\" onmouseover='new tooltip().createTooltip(event, this, \"Cliquez pour trier par \"+this.innerHTML);' onClick='document.location.href=\"".moveParameter('sortCol=', moveParameter('sorting=', $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'], ascOrDesc("dbo.ART.Bezeichnung")), "dbo.ART.Bezeichnung")."\";'>Lieu de stockage");
 		
-		if($strSortCol == "ARKALK.Kalkulationspreis" || $strSortCol == "dbo.ARKALK.Kalkulationspreis") {
+		if($strSortCol == "ART.Bezeichnung" || $strSortCol == "dbo.ART.Bezeichnung") {
+			
+			$strSorting == 'asc' ? print(" <i class='icon-chevron-down'></i>") : print(" <i class='icon-chevron-up'></i>");
+		}
+		*/
+
+		
+
+	
+
+		print("</th>\n");
+		print("<th class=\"pointer\" onmouseover='new tooltip().createTooltip(event, this, \"Cliquez pour trier par \"+this.innerHTML);' onClick='document.location.href=\"".moveParameter('sortCol=', moveParameter('sorting=', $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'], ascOrDesc("dbo.ARKALK.PaListpreis")), "dbo.ARKALK.PaListpreis")."\";'>Prix");
+		
+		if($strSortCol == "ARKALK.PaListpreis" || $strSortCol == "dbo.ARKALK.PaListpreis") {
 			
 			$strSorting == 'asc' ? print(" <i class='icon-chevron-down'></i>") : print(" <i class='icon-chevron-up'></i>");
 		}
