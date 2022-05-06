@@ -136,25 +136,21 @@ if(isset($_SESSION['cart'])) {
 					<option value="127">Ryser Yann (YRR)</option>
 					<option value="117">Schaller Lionel (LSH)</option>
 					<option value="124">Zappelli Alexandre (AZI)</option>
-					
-					
-					/////ID à changer
-					/*
-					<option value="124">Henry Sébastien (SHY)</option>
-					<option value="124">Huser Matthias (MHR)</option>
-					<option value="124">Piguet Ralph (RPT)</option>
-					<option value="124">Sousa Pedro (PSA)</option>
-					<option value="124">Seydoux Dominique (DSX)</option>
-					<option value="124">Richard Patrick (PRI)</option>
-					<option value="124">Rochat Sylvain (SRO)</option>
-					<option value="124">Bertholet Thierry (TBT)</option>
-					<option value="124">Di Natale Romain (RDE)</option>
-					<option value="124">Castoldi Serge (SCA)</option>
-					<option value="124">Richard Albert (ARC)</option>
-					<option value="124">Sahli Bertrand (BSI)</option>
-					<option value="124">Schneider Patrick (PSR)</option>
+					<option value="158">Henry Sébastien (SHY)</option>
+					<option value="159">Huser Matthias (MHR)</option>
+					<option value="160">Piguet Ralph (RPT)</option>
+					<option value="161">Sousa Pedro (PSA)</option>
+					<option value="162">Seydoux Dominique (DSX)</option>
+					<option value="163">Richard Patrick (PRI)</option>
+					<option value="164">Rochat Sylvain (SRO)</option>
+					<option value="165">Bertholet Thierry (TBT)</option>
+					<option value="166">Di Natale Romain (RDE)</option>
+					<option value="167">Castoldi Serge (SCA)</option>
+					<option value="168">Richard Albert (ARC)</option>
+					<option value="169">Sahli Bertrand (BSI)</option>
+					<option value="170">Schneider Patrick (PSR)</option>
 
-					*/
+					
 
 
 
